@@ -52,75 +52,14 @@ namespace Server.Controllers
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                await SaveDocumentTagTagFieldsToDbAsync(request, xmlDocument, document);
+                await Create_Document_Tags_TagContents(request, xmlDocument, document);
 
-                Dictionary<Tag, List<string>> dictionaryDocumentTagWithWords = new Dictionary<Tag, List<string>>(); 
-                FindDocumentTagWithWords(document, dictionaryDocumentTagWithWords);
+                Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords = new Dictionary<Tag, List<string>>();
+                FindDocumentTagWithWords(document, dictionaryDocumentTagsWithWords);
 
-                Analysis analysis = new Analysis();
-                analysis.Document = document;
-                analysis.StartDate = startDate;
+                Analysis analysis = await Create_Analysis(document, startDate, stopwatch, dictionaryDocumentTagsWithWords);
 
-                foreach (var dictionaryDocumentTagWithWholeWord in dictionaryDocumentTagWithWords)
-                {
-                    var duplicateWordsWithCount = dictionaryDocumentTagWithWholeWord.Value
-                        .GroupBy(x => x)
-                        .Where(z => z.Count() > 1)
-                        .Select(y => new { Word = y.Key, Count = y.Count() })
-                        .OrderByDescending(t => t.Count)
-                        .ToList();
-
-                    List<AnalysisItem> analysisResultList = new List<AnalysisItem>();
-                    foreach (var duplicateWordWithCount in duplicateWordsWithCount)
-                    {
-                        AnalysisItem analysisResult = new AnalysisItem();
-                        analysisResult.Analysis = analysis;
-                        analysisResult.Tag = dictionaryDocumentTagWithWholeWord.Key;
-
-                        analysisResult.Word = duplicateWordWithCount.Word;
-                        analysisResult.Count = duplicateWordWithCount.Count;
-
-                        analysisResultList.Add(analysisResult);
-                    }
-                    analysis.AnalysisItems.AddRange(analysisResultList);
-                }
-
-                stopwatch.Stop();
-                TimeSpan timeTaken = stopwatch.Elapsed;
-                double elapsedMiliseconds = timeTaken.TotalMilliseconds;
-                DateTime endDate = startDate.Add(timeTaken);
-                Console.WriteLine($"Time elapsed milliseconds: {elapsedMiliseconds}");
-
-                analysis.EndDate = endDate;
-                analysis.ElapsedMiliseconds = elapsedMiliseconds;
-
-                await _context.Analyzes.AddAsync(analysis);
-                await _context.SaveChangesAsync();
-
-                AnalysisResponseDto analysisResponseDTO = new AnalysisResponseDto();
-                analysisResponseDTO.AnalysisId = analysis.Id;
-                analysisResponseDTO.StartDate = analysis.StartDate;
-                analysisResponseDTO.EndDate = analysis.EndDate;
-                analysisResponseDTO.ElapsedMiliseconds = analysis.ElapsedMiliseconds;
-
-                foreach (var dictionaryDocumentTagWithWholeWord in dictionaryDocumentTagWithWords)
-                {
-                    TagDto tagDTO = new TagDto();
-                    tagDTO.Content = dictionaryDocumentTagWithWholeWord.Key.Content;
-
-                    var analysisResults = analysis.AnalysisItems.Where(x => x.TagId == dictionaryDocumentTagWithWholeWord.Key.Id)
-                                                                        .OrderByDescending(y => y.Count);
-                    foreach (var analysisResult in analysisResults)
-                    {
-                        AnalysisResultDto analysisResultDTO = new AnalysisResultDto();
-                        analysisResultDTO.Word = analysisResult.Word;
-                        analysisResultDTO.Count = analysisResult.Count;
-
-                        tagDTO.AnalysisResultDtos.Add(analysisResultDTO);
-                    }
-
-                    analysisResponseDTO.AnalysisTagDtos.Add(tagDTO);
-                }
+                AnalysisResponseDto analysisResponseDTO = Create_AnalysisResponseDto(dictionaryDocumentTagsWithWords, analysis);
 
                 return Ok(analysisResponseDTO);
             }
@@ -130,7 +69,7 @@ namespace Server.Controllers
                 throw;
             }
         }
-
+      
         private static void FindDocumentTagWithWords(Document document, Dictionary<Tag, List<string>> dictionaryDocumentTagWithWords)
         {
             CultureInfo cultureInfo = new CultureInfo("en-US", false);
@@ -162,21 +101,21 @@ namespace Server.Controllers
         /// <param name="xmlDocument"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        private async Task SaveDocumentTagTagFieldsToDbAsync(AnalysisRequestDto request, XmlDocument xmlDocument, Document document)
+        private async Task Create_Document_Tags_TagContents(AnalysisRequestDto request, XmlDocument xmlDocument, Document document)
         {
             document.Data = request.Data;
 
             var tagList = request.Tags.Split(';').ToList();
             foreach (var strTag in tagList)
             {
-                SearchTagAndTagContents(strTag, xmlDocument, document);
+                Search_Tag_TagContents(strTag, xmlDocument, document);
             }
 
             await _context.Documents.AddAsync(document);
             await _context.SaveChangesAsync();
         }
-
-        private static void SearchTagAndTagContents(string strTag, XmlDocument xmlDocument, Document document)
+        
+        private static void Search_Tag_TagContents(string strTag, XmlDocument xmlDocument, Document document)
         {
             Tag tag = new Tag();
             tag.Document = document;
@@ -194,6 +133,79 @@ namespace Server.Controllers
                 tag.TagContents.Add(tagContent);
             }
             document.Tags.Add(tag);
+        }
+       
+        private static AnalysisResponseDto Create_AnalysisResponseDto(Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords, Analysis analysis)
+        {
+            AnalysisResponseDto analysisResponseDTO = new AnalysisResponseDto();
+            analysisResponseDTO.AnalysisId = analysis.Id;
+            analysisResponseDTO.StartDate = analysis.StartDate;
+            analysisResponseDTO.EndDate = analysis.EndDate;
+            analysisResponseDTO.ElapsedMiliseconds = analysis.ElapsedMiliseconds;
+
+            foreach (var dictionaryDocumentTagWithWholeWord in dictionaryDocumentTagsWithWords)
+            {
+                TagDto tagDTO = new TagDto();
+                tagDTO.Content = dictionaryDocumentTagWithWholeWord.Key.Content;
+
+                var analysisResults = analysis.AnalysisItems.Where(x => x.TagId == dictionaryDocumentTagWithWholeWord.Key.Id)
+                                                            .OrderByDescending(y => y.Count);
+
+                foreach (var analysisResult in analysisResults)
+                {
+                    AnalysisResultDto analysisResultDTO = new AnalysisResultDto();
+                    analysisResultDTO.Word = analysisResult.Word;
+                    analysisResultDTO.Count = analysisResult.Count;
+
+                    tagDTO.AnalysisResultDtos.Add(analysisResultDTO);
+                }
+                analysisResponseDTO.AnalysisTagDtos.Add(tagDTO);
+            }
+            return analysisResponseDTO;
+        }
+
+        private async Task<Analysis> Create_Analysis(Document document, DateTime startDate, Stopwatch stopwatch, Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords)
+        {
+            Analysis analysis = new Analysis();
+            analysis.Document = document;
+            analysis.StartDate = startDate;
+
+            foreach (var dictionaryDocumentTagWithWholeWords in dictionaryDocumentTagsWithWords)
+            {
+                var duplicateWordsWithCount = dictionaryDocumentTagWithWholeWords.Value
+                    .GroupBy(x => x)
+                    .Where(z => z.Count() > 1)
+                    .Select(y => new { Word = y.Key, Count = y.Count() })
+                    .OrderByDescending(t => t.Count)
+                    .ToList();
+
+                List<AnalysisItem> analysisResultList = new List<AnalysisItem>();
+                foreach (var duplicateWordWithCount in duplicateWordsWithCount)
+                {
+                    AnalysisItem analysisResult = new AnalysisItem();
+                    analysisResult.Analysis = analysis;
+                    analysisResult.Tag = dictionaryDocumentTagWithWholeWords.Key;
+
+                    analysisResult.Word = duplicateWordWithCount.Word;
+                    analysisResult.Count = duplicateWordWithCount.Count;
+
+                    analysisResultList.Add(analysisResult);
+                }
+                analysis.AnalysisItems.AddRange(analysisResultList);
+            }
+
+            stopwatch.Stop();
+            TimeSpan timeTaken = stopwatch.Elapsed;
+            double elapsedMiliseconds = timeTaken.TotalMilliseconds;
+            DateTime endDate = startDate.Add(timeTaken);
+            Console.WriteLine($"Time elapsed milliseconds: {elapsedMiliseconds}");
+
+            analysis.EndDate = endDate;
+            analysis.ElapsedMiliseconds = elapsedMiliseconds;
+
+            await _context.Analyzes.AddAsync(analysis);
+            await _context.SaveChangesAsync();
+            return analysis;
         }
     }
 }
