@@ -46,7 +46,7 @@ namespace Server.Controllers
                 }
 
                 Document document = new Document();
-                DateTime startDate = DateTime.UtcNow;
+                DateTime startDate = DateTime.Now;
                 document.Date = startDate;
 
                 Stopwatch stopwatch = new Stopwatch();
