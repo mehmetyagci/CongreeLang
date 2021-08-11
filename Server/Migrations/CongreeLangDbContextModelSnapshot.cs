@@ -111,7 +111,7 @@ namespace Server.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("Server.Models.TagDetail", b =>
+            modelBuilder.Entity("Server.Models.TagContent", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace Server.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagDetail");
+                    b.ToTable("TagContent");
                 });
 
             modelBuilder.Entity("Server.Models.Analysis", b =>
@@ -172,10 +172,10 @@ namespace Server.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Server.Models.TagDetail", b =>
+            modelBuilder.Entity("Server.Models.TagContent", b =>
                 {
                     b.HasOne("Server.Models.Tag", "Tag")
-                        .WithMany("TagDetails")
+                        .WithMany("TagContents")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -195,7 +195,7 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Models.Tag", b =>
                 {
-                    b.Navigation("TagDetails");
+                    b.Navigation("TagContents");
                 });
 #pragma warning restore 612, 618
         }

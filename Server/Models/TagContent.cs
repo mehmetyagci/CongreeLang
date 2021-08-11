@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class TagDetail
+    public class TagContent
     {
         public long Id { get; set; }
 

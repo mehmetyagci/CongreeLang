@@ -12,7 +12,7 @@ namespace Server.Db
         #region DbSets
         public DbSet<Document> Documents { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagDetail> TagDetails { get; set; }
+        public DbSet<TagContent> TagContents { get; set; }
 
         #region Analysis
         public DbSet<Analysis> Analyzes { get; set; }
@@ -30,7 +30,7 @@ namespace Server.Db
         {
             modelBuilder.Entity<Document>().ToTable(nameof(Document));
             modelBuilder.Entity<Tag>().ToTable(nameof(Tag));
-            modelBuilder.Entity<TagDetail>().ToTable(nameof(TagDetail));
+            modelBuilder.Entity<TagContent>().ToTable(nameof(TagContent));
 
             modelBuilder.Entity<Analysis>().ToTable(nameof(Analysis));
             modelBuilder.Entity<AnalysisItem>().ToTable(nameof(AnalysisItem));

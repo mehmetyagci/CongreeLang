@@ -137,9 +137,9 @@ namespace Server.Controllers
             foreach (var documentTag in document.Tags)
             {
                 List<string> sentenceWords = new List<string>();
-                foreach (var tagDetail in documentTag.TagDetails)
+                foreach (var tagContent in documentTag.TagContents)
                 {
-                    string sentence = tagDetail.Content;
+                    string sentence = tagContent.Content;
                     char[] charsToTrim = { ';', ',', '.', ':', ' ', '\t', '"', '(', ')', '/' };
                     string[] words = sentence.ToLower(cultureInfo).Split();
                     foreach (string word in words)
@@ -169,14 +169,14 @@ namespace Server.Controllers
             var tagList = request.Tags.Split(';').ToList();
             foreach (var strTag in tagList)
             {
-                SearchTagAndTagDetails(strTag, xmlDocument, document);
+                SearchTagAndTagContents(strTag, xmlDocument, document);
             }
 
             await _context.Documents.AddAsync(document);
             await _context.SaveChangesAsync();
         }
 
-        private static void SearchTagAndTagDetails(string strTag, XmlDocument xmlDocument, Document document)
+        private static void SearchTagAndTagContents(string strTag, XmlDocument xmlDocument, Document document)
         {
             Tag tag = new Tag();
             tag.Document = document;
@@ -187,11 +187,11 @@ namespace Server.Controllers
             foreach (XmlNode node in nodes)
             {
                 var sentence = node.InnerText;
-                TagDetail tagDetail = new TagDetail();
-                tagDetail.Tag = tag;
-                tagDetail.Content = sentence;
+                TagContent tagContent = new TagContent();
+                tagContent.Tag = tag;
+                tagContent.Content = sentence;
 
-                tag.TagDetails.Add(tagDetail);
+                tag.TagContents.Add(tagContent);
             }
             document.Tags.Add(tag);
         }
