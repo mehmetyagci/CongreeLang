@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Server.DTOs
+namespace Dto
 {
-    public class DocumentAnalysisRequestDTO
+    public class AnalysisRequestDto
     {
         /// <summary>
         /// XML Data 

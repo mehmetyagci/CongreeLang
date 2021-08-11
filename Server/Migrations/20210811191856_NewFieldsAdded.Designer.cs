@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Db;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(CongreeLangDbContext))]
-    partial class CongreeLangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210811191856_NewFieldsAdded")]
+    partial class NewFieldsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Server.Migrations
 
                     b.HasIndex("DocumentId");
 
-                    b.ToTable("Analysis");
+                    b.ToTable("Analyzes");
                 });
 
             modelBuilder.Entity("Server.Models.AnalysisItem", b =>

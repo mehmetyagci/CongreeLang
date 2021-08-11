@@ -2,7 +2,7 @@
   "profiles": {
     "Client": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\MehmetYagci\\source\\repos\\CongreeLang\\Client\\XMLData.xml p;li"
+      "commandLineArgs": "C:\\Users\\MehmetYagci\\source\\repos\\CongreeLang\\Client\\CompathyManualContentGraspSX.xml p;li"
     }
   }
 }

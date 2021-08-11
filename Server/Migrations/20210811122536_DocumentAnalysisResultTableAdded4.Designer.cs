@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Db;
 
 namespace Server.Migrations
 {
     [DbContext(typeof(CongreeLangDbContext))]
-    partial class CongreeLangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210811122536_DocumentAnalysisResultTableAdded4")]
+    partial class DocumentAnalysisResultTableAdded4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,44 +21,18 @@ namespace Server.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Server.Models.Analysis", b =>
+            modelBuilder.Entity("Server.Models.AnalysisResult", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("DocumentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("ElapsedMiliseconds")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.ToTable("Analysis");
-                });
-
-            modelBuilder.Entity("Server.Models.AnalysisItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("AnalysisId")
-                        .HasColumnType("bigint");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
+
+                    b.Property<long>("DocumentId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("TagId")
                         .HasColumnType("bigint");
@@ -66,11 +42,11 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnalysisId");
+                    b.HasIndex("DocumentId");
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("AnalysisItem");
+                    b.ToTable("AnalysisResult");
                 });
 
             modelBuilder.Entity("Server.Models.Document", b =>
@@ -83,7 +59,10 @@ namespace Server.Migrations
                     b.Property<string>("Data")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -131,22 +110,11 @@ namespace Server.Migrations
                     b.ToTable("TagDetail");
                 });
 
-            modelBuilder.Entity("Server.Models.Analysis", b =>
+            modelBuilder.Entity("Server.Models.AnalysisResult", b =>
                 {
                     b.HasOne("Server.Models.Document", "Document")
                         .WithMany()
                         .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Document");
-                });
-
-            modelBuilder.Entity("Server.Models.AnalysisItem", b =>
-                {
-                    b.HasOne("Server.Models.Analysis", "Analysis")
-                        .WithMany("AnalysisItems")
-                        .HasForeignKey("AnalysisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -156,7 +124,7 @@ namespace Server.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Analysis");
+                    b.Navigation("Document");
 
                     b.Navigation("Tag");
                 });
@@ -181,11 +149,6 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.Navigation("Tag");
-                });
-
-            modelBuilder.Entity("Server.Models.Analysis", b =>
-                {
-                    b.Navigation("AnalysisItems");
                 });
 
             modelBuilder.Entity("Server.Models.Document", b =>

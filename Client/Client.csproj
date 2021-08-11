@@ -6,7 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="Compathy_Manual_ContentGrasp SX_en.xml">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dto\Dto.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ErrorXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CompathyManualContentGraspSXenp.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CompathyManualContentGraspSX.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
