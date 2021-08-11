@@ -10,8 +10,8 @@ using Server.Db;
 namespace Server.Migrations
 {
     [DbContext(typeof(CongreeLangDbContext))]
-    [Migration("20210811104603_EndDateAddedToDocument")]
-    partial class EndDateAddedToDocument
+    [Migration("20210811222200_ReCreateAllTables")]
+    partial class ReCreateAllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,60 @@ namespace Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Server.Models.Analysis", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("DocumentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("ElapsedMiliseconds")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
+
+                    b.ToTable("Analysis");
+                });
+
+            modelBuilder.Entity("Server.Models.AnalysisItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AnalysisId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<long>("TagId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Word")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnalysisId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("AnalysisItem");
+                });
 
             modelBuilder.Entity("Server.Models.Document", b =>
                 {
@@ -31,10 +85,7 @@ namespace Server.Migrations
                     b.Property<string>("Data")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -62,7 +113,7 @@ namespace Server.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("Server.Models.TagDetail", b =>
+            modelBuilder.Entity("Server.Models.TagContent", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +130,37 @@ namespace Server.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagDetail");
+                    b.ToTable("TagContent");
+                });
+
+            modelBuilder.Entity("Server.Models.Analysis", b =>
+                {
+                    b.HasOne("Server.Models.Document", "Document")
+                        .WithMany()
+                        .HasForeignKey("DocumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Document");
+                });
+
+            modelBuilder.Entity("Server.Models.AnalysisItem", b =>
+                {
+                    b.HasOne("Server.Models.Analysis", "Analysis")
+                        .WithMany("AnalysisItems")
+                        .HasForeignKey("AnalysisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Analysis");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Server.Models.Tag", b =>
@@ -93,15 +174,20 @@ namespace Server.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Server.Models.TagDetail", b =>
+            modelBuilder.Entity("Server.Models.TagContent", b =>
                 {
                     b.HasOne("Server.Models.Tag", "Tag")
-                        .WithMany("TagDetails")
+                        .WithMany("TagContents")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Server.Models.Analysis", b =>
+                {
+                    b.Navigation("AnalysisItems");
                 });
 
             modelBuilder.Entity("Server.Models.Document", b =>
@@ -111,7 +197,7 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Models.Tag", b =>
                 {
-                    b.Navigation("TagDetails");
+                    b.Navigation("TagContents");
                 });
 #pragma warning restore 612, 618
         }

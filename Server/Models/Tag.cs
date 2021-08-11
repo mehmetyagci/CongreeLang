@@ -13,6 +13,6 @@ namespace Server.Models
         public long DocumentId { get; set; }
         public Document Document { get; set; }
 
-        public List<TagDetail> TagDetails { get; set; } = new List<TagDetail>();
+        public List<TagContent> TagContents { get; set; } = new List<TagContent>();
     }
 }
