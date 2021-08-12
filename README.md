@@ -60,12 +60,12 @@ The project uses .NET 5 Framework and MS SQL Server.
  cd CongreeLang\Client\bin\Debug\net5.0
   ```
 
-- For starting Client App use below command.
+- For starting Client App use the below command.
  ```bash
 .\Client.exe "1.xml" "p;li" "2.xml" "p" "3.xml" "li" "4.xml" "p;li" "5.xml" "p" "6.xml" "li" "7.xml" "p;li" "8.xml" "p" "9.xml" "li"
  ```
 
-- Multiple requests sending asynchronously. You can see total elapsed miliseconds info. And also you can see elapsed miliseconds info for each request 
+- Multiple requests sending asynchronously. You can see total elapsed milliseconds info. And also you can see elapsed milliseconds  info for each request 
 ![Result1](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/10Result.png)
 
 - Each XML document analysis result seen beetween 
@@ -73,3 +73,4 @@ The project uses .NET 5 Framework and MS SQL Server.
 >**Index - $indexnumber Document processing starting** 
 and 
 >**Index - $indexnumber Document processing ended**
+
