@@ -12,16 +12,16 @@ The solution has two applications.
 
 ## UML
 ![UML](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/4UML_Diagram.png)
- - Document: It stores XML file information to be analyzed (XMLDocument data, date, etc.)
- - Tag: It stores the information of the elements to be extracted from the document and the contents of the tag (p, how comprehensible individual...  e.g.)
- - Analysis: It stores document analysis information (StartDate, EndDate, ElapsedMiliseconds e.g.)
- - AnalysisItem: It stores the repeating vocabulary and the number of occurrences associated with the Analysis, Document, and Tag
+ - Document Table: It stores XML file information to be analyzed (XMLDocument data, date, etc.)
+ - Tag Table: It stores the information of the elements to be extracted from the document and the contents of the tag (p, how comprehensible individual...  e.g.)
+ - Analysis Table: It stores document analysis information (StartDate, EndDate, ElapsedMilliseconds e.g.)
+ - AnalysisItem Table: It stores the repeating vocabulary and the number of occurrences associated with the Analysis, Document, and Tag
 
 ## Installation 
 The project uses .NET 5 Framework and MS SQL Server. 
  - If you do not have .NET >= 5.x installed, you can download it here: [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
  - If you do not have an MS SQL Server instance, you can download the Express version from here: [MS SQL Express](https://www.microsoft.com/tr-tr/sql-server/sql-server-downloads)
- - Install Visual Studio 2019 Express for, you can download it here: [Visual Studio 2019](https://visualstudio.microsoft.com/tr/vs/express/) 
+ - If you do not have Visual Studio 2019 Express, you can download it here: [Visual Studio 2019](https://visualstudio.microsoft.com/tr/vs/express/) 
 
 ## Running Application
  - git clone **https://github.com/mehmetyagci/CongreeLang.git**
@@ -37,7 +37,7 @@ The project uses .NET 5 Framework and MS SQL Server.
  - Delete Migration Folder on Server Project
 ![Migration Folder](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/6DeleteMigrationFolder.png)
 
- - Set **Server** as starter project
+ - Set **Server** as a starter project
 ![Server starter project](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/8SetServerStarterProject.png)
 
  - Open **Package Manager Console** Window then run below commands
@@ -52,7 +52,7 @@ The project uses .NET 5 Framework and MS SQL Server.
 
 
 ## How to Use the App
- - Server Application must start firstly. Run CongreeLang.sln for starting Server project
+ - Server Application must start first. Run CongreeLang.sln for starting the Server project
 ![Server](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/2Server.png)
 
 - Open Power shell then run below command for starting Client Application
