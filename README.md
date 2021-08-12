@@ -69,7 +69,7 @@ The project uses .NET 5 Framework and MS SQL Server.
 ![Result1](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/10Result.png)
 
 - Each XML document analysis result seen beetween 
+![Result2](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/11Result.png)
 >**Index - $indexnumber Document processing starting** 
 and 
 >**Index - $indexnumber Document processing ended**
-![Result2](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/11Result.png)
