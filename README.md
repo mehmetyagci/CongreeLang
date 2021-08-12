@@ -59,6 +59,9 @@ command after run
  ```
 - Multiple analysis requests working as parallel. You can see total requests and analysis Miliseconds info also.
 ![Result1](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/10Result.png)
-- Each XML document analysis result seen beetween **Index - $indexnumber Document processing starting** and **Index - $indexnumber Document processing ended**
+- Each XML document analysis result seen beetween 
+>**Index - $indexnumber Document processing starting** 
+and 
+>**Index - $indexnumber Document processing ended**
 ![Result2](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/11Result.png)
 
