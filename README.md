@@ -25,20 +25,23 @@ The project uses .NET 5 Framework and MS SQL Server.
  - git clone **https://github.com/mehmetyagci/CongreeLang.git**
  - cd CongreeLang
  - open CongreeLang.sln with Visual Studio 2019
- >**Rebuil Solution**
- - 
+ - Rebuil Solution**
 ![Rebuild Folder](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/7Rebuild.png)
+
  - Change MS SQL Server connection string setting in **appsettings.json** file on **Server Project**
 ![Connection String Setting](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/5ConnString.png)
+
  - Delete Migration Folder on Server Project
 ![Migration Folder](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/6DeleteMigrationFolder.png)
+
  - Set **Server** as starter project
 ![Server starter project](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/8SetServerStarterProject.png)
+
  - Open **Package Manager Console** Window then run 
  ```bash
  Add-Migration Initial 
  ```
-command after run 
+command after run below command
  ```bash
  Update-Database 
  ```
