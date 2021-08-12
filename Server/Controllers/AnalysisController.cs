@@ -30,9 +30,14 @@ namespace Server.Controllers
         {
             try
             {
+                if (request == null)
+                {
+                    return BadRequest("Request object is null");
+                }
+
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest("Not a valid data");
+                    return BadRequest("Invalid model object");
                 }
 
                 XmlDocument xmlDocument = new XmlDocument();
@@ -55,7 +60,7 @@ namespace Server.Controllers
                 await Create_Document_Tags_TagContents(request, xmlDocument, document);
 
                 Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords = new Dictionary<Tag, List<string>>();
-                FindDocumentTagWithWords(document, dictionaryDocumentTagsWithWords);
+                FindTagWithWords(document, dictionaryDocumentTagsWithWords);
 
                 Analysis analysis = await Create_Analysis(document, startDate, stopwatch, dictionaryDocumentTagsWithWords);
 
@@ -65,12 +70,11 @@ namespace Server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("An error occured!");
-                throw;
+                return StatusCode(500, "Internal server error");
             }
         }
       
-        private static void FindDocumentTagWithWords(Document document, Dictionary<Tag, List<string>> dictionaryDocumentTagWithWords)
+        private static void FindTagWithWords(Document document, Dictionary<Tag, List<string>> dictionaryDocumentTagWithWords)
         {
             CultureInfo cultureInfo = new CultureInfo("en-US", false);
             foreach (var documentTag in document.Tags)
@@ -94,13 +98,6 @@ namespace Server.Controllers
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="xmlDocument"></param>
-        /// <param name="document"></param>
-        /// <returns></returns>
         private async Task Create_Document_Tags_TagContents(AnalysisRequestDto request, XmlDocument xmlDocument, Document document)
         {
             document.Data = request.Data;

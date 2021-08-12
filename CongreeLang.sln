@@ -7,7 +7,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{2F652C44-C92B-4BB4-8EB3-130391C95157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dto", "Dto\Dto.csproj", "{715B6A5F-51F0-4AE4-84D6-793A485ACD0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dto", "Dto\Dto.csproj", "{715B6A5F-51F0-4AE4-84D6-793A485ACD0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{64DB0EAE-6B2A-4E61-8AE1-534AA1D9366F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{D2118D9F-7B28-42F5-84FB-670C3EFE36DF}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\screenshots\ClientApp.png = ..\..\..\Desktop\screenshots\ClientApp.png
+		..\..\..\Desktop\screenshots\Db.png = ..\..\..\Desktop\screenshots\Db.png
+		..\..\..\Desktop\screenshots\Server.png = ..\..\..\Desktop\screenshots\Server.png
+		..\..\..\Desktop\screenshots\UML_Diagram.png = ..\..\..\Desktop\screenshots\UML_Diagram.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
