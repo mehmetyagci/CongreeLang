@@ -16,10 +16,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{D2118D9F-7B28-42F5-84FB-670C3EFE36DF}"
 	ProjectSection(SolutionItems) = preProject
+		screehshots\10Result.png = screehshots\10Result.png
+		screehshots\11Result.png = screehshots\11Result.png
 		screehshots\1ClientApp.png = screehshots\1ClientApp.png
 		screehshots\2Server.png = screehshots\2Server.png
 		screehshots\3Db.png = screehshots\3Db.png
 		screehshots\4UML_Diagram.png = screehshots\4UML_Diagram.png
+		screehshots\5ConnString.png = screehshots\5ConnString.png
+		screehshots\6DeleteMigrationFolder.png = screehshots\6DeleteMigrationFolder.png
+		screehshots\7Rebuild.png = screehshots\7Rebuild.png
+		screehshots\8SetServerStarterProject.png = screehshots\8SetServerStarterProject.png
+		screehshots\9CreateMigration.png = screehshots\9CreateMigration.png
+		screehshots\ClientCommandArgs.png = screehshots\ClientCommandArgs.png
+		screehshots\RunningProjects.png = screehshots\RunningProjects.png
 	EndProjectSection
 EndProject
 Global
