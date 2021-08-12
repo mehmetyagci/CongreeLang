@@ -2,7 +2,7 @@
   "profiles": {
     "Client": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\1.xml p;li C:\\2.xml p C:\\3.xml li C:\\4.xml p;li C:\\5.xml p C:\\6.xml li C:\\7.xml p;li C:\\8.xml p C:\\9.xml li"
+      "commandLineArgs": "1.xml p;li 2.xml p 3.xml li 4.xml p;li 5.xml p 6.xml li 7.xml p;li 8.xml p 9.xml li"
     }
   }
 }
