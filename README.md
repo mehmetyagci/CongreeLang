@@ -25,7 +25,7 @@ The project uses .NET 5 Framework and MS SQL Server.
  - git clone **https://github.com/mehmetyagci/CongreeLang.git**
  - cd CongreeLang
  - open CongreeLang.sln with Visual Studio 2019
- - Rebuil Solution
+ >**Rebuil Solution**
 ![Rebuild Folder](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/7Rebuild.png)
  - Change MS SQL Server connection string setting in **appsettings.json** file on **Server Project**
 ![Connection String Setting](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/5ConnString.png)
@@ -46,6 +46,8 @@ The project uses .NET 5 Framework and MS SQL Server.
 > **cd CongreeLang\Client\bin\Debug\net5.0 folder**
 - For starting Client App use below command.
 > **.\Client.exe "1.xml" "p;li" "2.xml" "p" "3.xml" "li" "4.xml" "p;li" "5.xml" "p" "6.xml" "li" "7.xml" "p;li" "8.xml" "p" "9.xml" "li"**
+- Multiple analysis requests working as parallel. You can see total requests and analysis Miliseconds info also.
 ![Result1](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/10Result.png)
-- Multiple analysis requests working as parallel.
+- Each XML document analysis result seen beetween **Index - $indexnumber Document processing starting** and **Index - $indexnumber Document processing ended**
 ![Result2](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/11Result.png)
+
