@@ -10,13 +10,14 @@ namespace Server.Db
     public class CongreeLangDbContext : DbContext
     {
         #region DbSets
+
         public DbSet<Document> Documents { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagContent> TagContents { get; set; }
 
         #region Analysis
         public DbSet<Analysis> Analyzes { get; set; }
         public DbSet<AnalysisItem> AnalysisItems { get; set; }
+
         #endregion Analysis
 
         #endregion DbSets
@@ -30,7 +31,6 @@ namespace Server.Db
         {
             modelBuilder.Entity<Document>().ToTable(nameof(Document));
             modelBuilder.Entity<Tag>().ToTable(nameof(Tag));
-            modelBuilder.Entity<TagContent>().ToTable(nameof(TagContent));
 
             modelBuilder.Entity<Analysis>().ToTable(nameof(Analysis));
             modelBuilder.Entity<AnalysisItem>().ToTable(nameof(AnalysisItem));

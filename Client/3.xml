@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic PUBLIC "-//OASIS//DTD DITA Topic//EN" "../dtd/technicalContent/dtd/topic.dtd">
+<topic id="id151RC0J0EEK" xml:lang="EN">
+<title>Compathy ContentGrasp SX</title>
+<shortdesc>Mind Your Own Business</shortdesc>
+<prolog>
+<author>Sam Won</author>
+<copyright><copyryear year="2015"/><copyrholder>Compathy Inc.</copyrholder>
+</copyright>
+<permissions view="Author"/></prolog>
+<topic id="topic-15-1DFB7DF6">
+<title>Preface</title>
+<body>
+<p>Congratulations on your purchase of the ContentGrasp SX headset.
+This revolutionary device will significantly improve the quality of
+your technical documentation without implementing an additional work
+step. During the normal review, the reviewers or test persons can
+check</p>
+<ul>
+<li>how comprehensible individual passages were;</li>
+<li>how carefully individual passages were read;</li>
+<li>which passages needed to be read repeatedly.</li>
+</ul>
+<p>This information is recorded by the headset and analyzed by intelligent
+software using a sophisticated algorithm.</p>
+<p>The result enables detailed, systematic improvement of the comprehensibility
+of technical documentation at an unprecedented level.</p>
+</body>
+</topic>
+<topic id="topic-15-1DFBA984">
+<title>Safety Informations</title>
+<body>
+<section><title>Radio Interference</title><p>Strong static, electric
+or high-frequency fields (radio systems, mobile phones, microwave
+ovens) can impair the function of the device and distort the results.
+Try to stay as far as possible from interfering appliances.</p></section>
+<section><title>Headache</title><p>In extremely rare cases, prolonged
+use of the ContentGrasp SX headset can cause headache and increased
+irritability. Avoid sessions of more than four hours, and regularly
+take breaks.</p></section>
+<section><title>Skin Irritation</title><p>Skin irritation can occur
+at the contact points during prolonged  use. Use the supplied contact
+gel to protect your skin.</p></section>
+</body>
+</topic>
+<topic id="topic-16-1DFC05C0">
+<title>Product Scope</title>
+<body>
+<p>The ContentGrasp SX headset comprises the following components:</p>
+<ul>
+<li>ContentGrasp SX headset</li>
+<li>ContentGrasp SX analysis software</li>
+<li>Compathy ContentGrasp SX cable remote control</li>
+<li>These instructions </li>
+<li>One bottle of ContentGrasp SX contact gel</li>
+</ul>
+</body>
+</topic>
+<topic id="topic-17-1DFC62B5">
+<title>System Requirements</title>
+<body>
+<ul>
+<li>Intel Core 2 Duo 2.2 GHz or similar AMD CPU</li>
+<li>2 GB RAM</li>
+<li>Windows 7/Windows 8</li>
+<li>8 GB free hard disk space</li>
+<li>Free USB interface</li>
+</ul>
+</body>
+</topic>
+<topic id="topic-18-1DFC73DC">
+<title>Use</title>
+<body>
+<p>Put the ContentGrasp SX headset on like normal earphones. Slightly
+pull the two sides of the headband to adjust the headset to the size
+of your head.</p>
+<p>Make sure that the two ear pads comfortably encompass your ears.
+This ensures that the sensors on the headband are positioned correctly,
+and your brain waves can be analyzed effectively.</p>
+<p>Subsequently, open the caps on the right and left ear pad and extract
+the temple sensors as far as they will go. Firmly press the sensors
+to your temples and pull the attached handles. Optionally, you can
+apply some contact gel to your temples.</p>
+<p>To avoid impairment of the sensor performance, keep your hair out
+of the way between your temples and the sensors.</p>
+<p>To activate the headset, press the On/Off button on the cable remote
+control. You can also activate the headset via the ContentGrasp SX
+icon in the systray of your computer.</p>
+<p>Open the document to be evaluated. Confirm the dialog that opens
+up automatically by clicking "Start". Thus, the recording will begin,
+and you should start reading the document.</p>
+<p>You can always interrupt the recording with the cable remote control,
+which however will also minimize the document.</p>
+</body>
+</topic>
+</topic>

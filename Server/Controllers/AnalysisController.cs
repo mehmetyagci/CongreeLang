@@ -57,7 +57,7 @@ namespace Server.Controllers
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                await Create_Document_Tags_TagContents(request, xmlDocument, document);
+                await CreateDocumentAndTags(request, xmlDocument, document);
 
                 Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords = new Dictionary<Tag, List<string>>();
                 FindTagWithWords(document, dictionaryDocumentTagsWithWords);
@@ -73,46 +73,43 @@ namespace Server.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-      
+
         private static void FindTagWithWords(Document document, Dictionary<Tag, List<string>> dictionaryDocumentTagWithWords)
         {
             CultureInfo cultureInfo = new CultureInfo("en-US", false);
             foreach (var documentTag in document.Tags)
             {
                 List<string> sentenceWords = new List<string>();
-                foreach (var tagContent in documentTag.TagContents)
+                string sentence = documentTag.TagContent;
+                char[] charsToTrim = { ';', ',', '.', ':', ' ', '\t', '"', '(', ')', '/' };
+                string[] words = sentence.ToLower(cultureInfo).Split();
+                foreach (string word in words)
                 {
-                    string sentence = tagContent.Content;
-                    char[] charsToTrim = { ';', ',', '.', ':', ' ', '\t', '"', '(', ')', '/' };
-                    string[] words = sentence.ToLower(cultureInfo).Split();
-                    foreach (string word in words)
+                    string trimmedWord = word.Trim(charsToTrim);
+                    if (!string.IsNullOrWhiteSpace(trimmedWord))
                     {
-                        string trimmedWord = word.Trim(charsToTrim);
-                        if (!string.IsNullOrWhiteSpace(trimmedWord))
-                        {
-                            sentenceWords.Add(trimmedWord);
-                        }
+                        sentenceWords.Add(trimmedWord);
                     }
                 }
                 dictionaryDocumentTagWithWords.Add(documentTag, sentenceWords);
             }
         }
 
-        private async Task Create_Document_Tags_TagContents(AnalysisRequestDto request, XmlDocument xmlDocument, Document document)
+        private async Task CreateDocumentAndTags(AnalysisRequestDto request, XmlDocument xmlDocument, Document document)
         {
             document.Data = request.Data;
 
             var tagList = request.Tags.Split(';').ToList();
             foreach (var strTag in tagList)
             {
-                Search_Tag_TagContents(strTag, xmlDocument, document);
+                SearchTags(strTag, xmlDocument, document);
             }
 
             await _context.Documents.AddAsync(document);
             await _context.SaveChangesAsync();
         }
-        
-        private static void Search_Tag_TagContents(string strTag, XmlDocument xmlDocument, Document document)
+
+        private static void SearchTags(string strTag, XmlDocument xmlDocument, Document document)
         {
             Tag tag = new Tag();
             tag.Document = document;
@@ -120,18 +117,16 @@ namespace Server.Controllers
 
             XmlNodeList nodes = xmlDocument.GetElementsByTagName(strTag);
 
+            string tagContent = string.Empty;
             foreach (XmlNode node in nodes)
             {
-                var sentence = node.InnerText;
-                TagContent tagContent = new TagContent();
-                tagContent.Tag = tag;
-                tagContent.Content = sentence;
-
-                tag.TagContents.Add(tagContent);
+                var sentence = node.InnerText + Environment.NewLine;
+                tagContent = tagContent + sentence;
             }
+            tag.TagContent = tagContent;
             document.Tags.Add(tag);
         }
-       
+
         private static AnalysisResponseDto Create_AnalysisResponseDto(Dictionary<Tag, List<string>> dictionaryDocumentTagsWithWords, Analysis analysis)
         {
             AnalysisResponseDto analysisResponseDTO = new AnalysisResponseDto();
