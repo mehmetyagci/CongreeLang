@@ -10,8 +10,7 @@ The solution has two applications.
 ## UML
 ![UML](https://github.com/mehmetyagci/CongreeLang/blob/master/screehshots/UML_Diagram.png)
  - Document: It stores XML file information to be analyzed.(XMLDocument data, date )
- - Tag: It stores the information of the elements to be extracted from the document.(p;li e.g.)
- - TagContent: It stores Tag related contents.
+ - Tag: It stores the information of the elements to be extracted from the document and the contents of tag.(p, how comprehensible individual...  e.g.)
 
  - Analysis: It stores document analysis information. (StartDate, EndDate, ElapsedMiliseconds e.g.)
  - AnalysisItem: It stores the repeating vocabulary and the number of occurrences associated with the Analysis, Document and Tag.
